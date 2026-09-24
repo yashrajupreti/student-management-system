@@ -1,0 +1,197 @@
+{% extends "base.html" %}
+
+{% block title %}Students | StudentHub{% endblock %}
+
+{% block content %}
+
+<div class="page-title">
+
+    <div>
+        <span class="welcome-tag">STUDENT RECORDS</span>
+
+        <h1>All Students</h1>
+
+        <p>View and manage all registered students.</p>
+    </div>
+
+    <a href="{{ url_for('add_student') }}" class="primary-btn">
+        + Add Student
+    </a>
+
+</div>
+
+
+<!-- SEARCH -->
+
+<form method="GET" action="{{ url_for('view_students') }}" class="search-container">
+
+    <div class="search-input">
+
+        <span>⌕</span>
+
+        <input
+            type="text"
+            name="search"
+            placeholder="Search by name, roll number or course..."
+            value="{{ search }}"
+        >
+
+    </div>
+
+    <button type="submit" class="search-btn">
+        Search
+    </button>
+
+</form>
+
+
+<!-- STUDENTS -->
+
+{% if students %}
+
+<div class="table-container">
+
+    <table>
+
+        <thead>
+
+            <tr>
+                <th>Name</th>
+                <th>Roll Number</th>
+                <th>Course</th>
+                <th>Marks</th>
+                <th>Attendance</th>
+                <th>Actions</th>
+            </tr>
+
+        </thead>
+
+
+        <tbody>
+
+        {% for student in students %}
+
+            <tr>
+
+                <td>
+
+                    <div class="student-name">
+
+                        <div class="avatar">
+                            {{ student["name"][0].upper() }}
+                        </div>
+
+                        <div>
+
+                            <strong>
+                                {{ student["name"] }}
+                            </strong>
+
+                            <small>
+                                {{ student["email"] }}
+                            </small>
+
+                        </div>
+
+                    </div>
+
+                </td>
+
+
+                <td>
+                    {{ student["roll"] }}
+                </td>
+
+
+                <td>
+                    {{ student["course"] }}
+                </td>
+
+
+                <td>
+                    {{ student["marks"] }}
+                </td>
+
+
+                <td>
+                    {{ student["attendance"] }}%
+                </td>
+
+
+                <td>
+
+                    <a
+                        href="{{ url_for(
+                            'student_details',
+                            student_id=student['id']
+                        ) }}"
+                    >
+                        View
+                    </a>
+
+
+                    &nbsp;
+
+
+                    <a
+                        href="{{ url_for(
+                            'edit_student',
+                            student_id=student['id']
+                        ) }}"
+                    >
+                        Edit
+                    </a>
+
+
+                    &nbsp;
+
+
+                    <form
+                        action="{{ url_for(
+                            'delete_student',
+                            student_id=student['id']
+                        ) }}"
+                        method="POST"
+                        style="display:inline;"
+                    >
+
+                        <button
+                            type="submit"
+                            onclick="return confirm('Delete this student?')"
+                        >
+                            Delete
+                        </button>
+
+                    </form>
+
+                </td>
+
+            </tr>
+
+        {% endfor %}
+
+        </tbody>
+
+    </table>
+
+</div>
+
+
+{% else %}
+
+<div class="empty-state">
+
+    <h2>No Students Found</h2>
+
+    <p>
+        No students have been added yet.
+    </p>
+
+    <a
+        href="{{ url_for('add_student') }}"
+        class="primary-btn"
+    >
+        + Add Student
+    </a>
+
+</div>
