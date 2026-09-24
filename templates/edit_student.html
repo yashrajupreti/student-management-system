@@ -1,0 +1,192 @@
+{% extends "base.html" %}
+
+{% block title %}Edit Student{% endblock %}
+
+{% block content %}
+
+<div class="edit-page">
+
+    <div class="form-heading">
+
+        <span class="welcome-tag">
+            UPDATE RECORD
+        </span>
+
+        <h1>Edit Student</h1>
+
+        <p>
+            Update the information for {{ student["name"] }}.
+        </p>
+
+    </div>
+
+
+    <form method="POST" class="modern-form">
+
+
+        <div class="form-section">
+
+            <h3>Personal Information</h3>
+
+            <p>Update basic student details</p>
+
+        </div>
+
+
+        <div class="form-grid">
+
+
+            <div class="input-group">
+
+                <label>Full Name</label>
+
+                <input
+                    type="text"
+                    name="name"
+                    value="{{ student['name'] }}"
+                    required
+                >
+
+            </div>
+
+
+            <div class="input-group">
+
+                <label>Roll Number</label>
+
+                <input
+                    type="text"
+                    name="roll"
+                    value="{{ student['roll'] }}"
+                    required
+                >
+
+            </div>
+
+
+            <div class="input-group">
+
+                <label>Email</label>
+
+                <input
+                    type="email"
+                    name="email"
+                    value="{{ student['email'] }}"
+                    required
+                >
+
+            </div>
+
+
+            <div class="input-group">
+
+                <label>Phone</label>
+
+                <input
+                    type="text"
+                    name="phone"
+                    value="{{ student['phone'] or '' }}"
+                >
+
+            </div>
+
+
+            <div class="input-group">
+
+                <label>Age</label>
+
+                <input
+                    type="number"
+                    name="age"
+                    value="{{ student['age'] or '' }}"
+                    min="1"
+                >
+
+            </div>
+
+
+            <div class="input-group">
+
+                <label>Course</label>
+
+                <input
+                    type="text"
+                    name="course"
+                    value="{{ student['course'] }}"
+                    required
+                >
+
+            </div>
+
+        </div>
+
+
+        <div class="form-section academic">
+
+            <h3>Academic Information</h3>
+
+            <p>Update performance and attendance</p>
+
+        </div>
+
+
+        <div class="form-grid">
+
+
+            <div class="input-group">
+
+                <label>Marks</label>
+
+                <input
+                    type="number"
+                    name="marks"
+                    value="{{ student['marks'] }}"
+                    min="0"
+                    max="100"
+                    step="0.01"
+                >
+
+            </div>
+
+
+            <div class="input-group">
+
+                <label>Attendance (%)</label>
+
+                <input
+                    type="number"
+                    name="attendance"
+                    value="{{ student['attendance'] }}"
+                    min="0"
+                    max="100"
+                    step="0.01"
+                >
+
+            </div>
+
+        </div>
+
+
+        <div class="form-actions">
+
+            <a
+                href="{{ url_for(
+                    'student_details',
+                    student_id=student['id']
+                ) }}"
+                class="secondary-btn"
+            >
+                Cancel
+            </a>
+
+
+            <button
+                type="submit"
+                class="primary-btn"
+            >
+                Save Changes
+            </button>
+
+        </div>
+
+    </form>
